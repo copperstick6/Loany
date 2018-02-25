@@ -30,10 +30,17 @@ export default class BuyLoan extends Component<{}> {
 	  this.handleSubmission = this.handleSubmission.bind(this)
   }
   handleSubmission(){
-	  if (amount = "" || rate == "" || rate < 0 || rate > 100){
+	  console.log(this.state.amount)
+	  amount = this.state.amount
+	  if (this.state.amount = "" || this.state.rate == "" || parseFloat(this.state.rate) < 0 || parseFloat(this.state.rate) > 100){
 		  Alert.alert("Error with submission, rate out of range(must be between 0-100) or field empty. Please revise and resubmit.")
 	  }
-	  
+	  AsyncStorage.getItem('name').then((value) =>{
+		  console.log(this.state.amount)
+		  console.log(amount)
+		  fetch("http://f53f49e2.ngrok.io/buy_new_loan?name="+value + "&amount=" + amount + "&rate=" + String(this.state.rate))
+	  }).then(()=> {this.props.navigation.navigate('Transactions')})
+
   }
 
   render() {
@@ -46,6 +53,7 @@ export default class BuyLoan extends Component<{}> {
 	  style={{ textAlign: 'center'}}
 		 onChangeText={(amount) => this.setState({amount})}
 		 value={this.state.amount}
+		keyboardType='numeric'
 		 placeholder="Amount you want a loan for"
 		 editable = {true}
 	   />
@@ -57,7 +65,6 @@ export default class BuyLoan extends Component<{}> {
 		  placeholder="Loan Rate"
 		  editable = {true}
 		 keyboardType='numeric'
-		 maxLength={3}
 		/>
 		<Text>{"\n"}</Text>
 		<Button onPress={this.handleSubmission} title="Submit Loan"></Button>
