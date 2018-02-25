@@ -12,7 +12,8 @@ import {
   View,
   TextInput,
   Button,
-  Alert
+  Alert,
+  AsyncStorage
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -35,9 +36,12 @@ export default class Signup extends Component<Props> {
 		}
 		this.setState({visible: true})
 		try{
-			await AsyncStorage.multiSet([['isNew', false], ['name', this.state.name], ['score', this.state.score]])
+			await AsyncStorage.setItem('isNew', "false")
+			await AsyncStorage.setItem('name', this.state.name)
+			await AsyncStorage.setItem('score', this.state.score)
 		}
 		catch(error){
+			console.log(error)
 			Alert.alert("Error with memory, out of space. Please clear some space and try again", error)
 		}
 		this.setState({visible: false})

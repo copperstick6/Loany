@@ -9,8 +9,8 @@ import {
 import Signup from './Signup'
 
 const TransactionNavigator = TabNavigator({
-	"Buy": {screen: Buy},
-	"Sell": {screen: Sell}
+	"Your Loans": {screen: Buy},
+	"Trade Loans": {screen: Sell}
 })
 
 const Loany = StackNavigator({

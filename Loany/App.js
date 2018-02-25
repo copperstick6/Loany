@@ -45,6 +45,7 @@ export default class App extends Component<{}> {
 	  catch(error){
 		  this.setState({isNew: true, visible: false})
 	  }
+	  this.setState({visible: false})
 
   }
   render() {
