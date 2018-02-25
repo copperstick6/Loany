@@ -20,8 +20,9 @@ export default class Buy extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			visible: false,
-			data: null
+			visible: true,
+			data: null,
+			ownedLoans: null
 		}
 		this.setSpinner = this.setSpinner.bind(this)
 		this.navigateBuyLoan = this.navigateBuyLoan.bind(this)
@@ -41,9 +42,23 @@ export default class Buy extends Component {
 				else{
 					this.setState({data: data})
 				}
-			}.bind(this)).then(() => {this.setState({visible: false})}).bind(this)
+			}.bind(this))
+			.then(()=>{
+				fetch("http://f53f49e2.ngrok.io/displayUserOwnedLoans?name=" + value)
+				.then((response) => response.json())
+				.then(function(data){
+					console.log(data)
+					if (data.length == 0){
+						this.setState({ownedLoans: "You currently own no loans."})
+					}
+					else{
+						this.setState({ownedLoans: data})
+					}
+				}.bind(this))
+			}
+			)
+			.then(() => {this.setState({visible: false})}).bind(this)
 	})
-		this.setState({visible: false})
 	}
 	navigateBuyLoan(){
 		this.props.navigation.navigate('BuyLoan')
@@ -53,8 +68,8 @@ export default class Buy extends Component {
 	}
   render() {
 	  let view = null
-	  if(this.state.data != null){
-		  view = <ExampleView spinnerSet = {this.setSpinner} data = {this.state.data} navigate = {this.navigateBuyLoan}/>
+	  if(this.state.ownedLoans != null){
+		  view = <ExampleView spinnerSet = {this.setSpinner} data = {this.state.data} navigate = {this.navigateBuyLoan} ownedLoans = {this.state.ownedLoans}/>
 	  }
 	return (
 	  <View style={styles.container}>

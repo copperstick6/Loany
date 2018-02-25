@@ -17,17 +17,13 @@ const BACON_IPSUM = 'Bacon ipsum dolor amet chuck turducken landjaeger tongue sp
 
 let CONTENT = [
   {
-	title: 'View Your Loans',
+	title: 'View loans you own',
 	content: BACON_IPSUM,
   },
   {
-	title: 'Get a new loan',
+	title: 'Buy a new loan',
 	content: BACON_IPSUM,
   },
-  {
-	  title: "Loans you own",
-	  content: BACON_IPSUM
-  }
 ];
 
 
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ExampleView extends Component {
+export default class SellLoanView extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
@@ -110,38 +106,10 @@ export default class ExampleView extends Component {
   }
 
   _renderContent(section, i, isActive) {
-	  var ItemList = null;
-	  if (i == 0){
-		  if(this.props.data == "You currently own no loans."){
-			  ItemList = <Text style={{textAlign: 'center', fontSize: 15}}>You did not buy any loans.</Text>
-		  }
-		  else{
-			  ItemList = this.props.data.map(function(loans){
-				  if(loans['buyer'] != ""){
-					  return <View><Text style={{textAlign: 'center', fontSize: 15}}>This loan has been purchased by {loans["buyer"]}{"\n"}Loan Amount: ${loans["amount"]}. Rate: {loans['rate']}% {"\n"}</Text></View>
-				  }
-				return <View><Text style={{textAlign: 'center', fontSize: 15}}>This loan has not been purchased {"\n"}Loan Amount: ${loans["amount"]}. Rate: {loans['rate']}% {"\n"}</Text><Button onPress = {console.log("hi")} title = "View Loan" /></View>
-			})
-		}
-	  }
-	  else if (i == 2){
-		  if(this.props.ownedLoans == "You currently own no loans."){
-			  ItemList = <Text style={{textAlign: 'center', fontSize: 15}}>You do not own any loans.</Text>
-		  }
-		  else{
-			  ItemList = this.props.ownedLoans.map(function(loans){
-				  return <View><Text style={{textAlign: 'center', fontSize: 15}}>Loan Amount: ${loans["amount"]}. Rate: {loans['rate']}% {"\n"}</Text></View>
-
-			})
-		  }
-	  }
-	  else{
-		  ItemList = <View><Text style={{textAlign: 'center', fontSize: 15}}>Buy a New Loan{"\n"}</Text><Button onPress={() => this.props.navigate()} title="Buy/Sell"></Button></View>
-	  }
-
+	  var ItemList = "Hi"
 	return (
 	  <Animatable.View duration={400}  style={[styles.content, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
-		<ScrollView>{ItemList}</ScrollView>
+		{ItemList}
 	  </Animatable.View>
 	);
 }
