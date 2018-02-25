@@ -2,6 +2,7 @@ import { AppRegistry } from 'react-native';
 import App from './App';
 import Buy from './Buy'
 import Sell from './Sell'
+import BuyLoan from './BuyLoan'
 import {
   TabNavigator,
   StackNavigator
@@ -16,7 +17,8 @@ const TransactionNavigator = TabNavigator({
 const Loany = StackNavigator({
 	Home: {screen: App},
 	Transactions: {screen: TransactionNavigator},
-	Signup: {screen: Signup}
+	Signup: {screen: Signup},
+	BuyLoan: {screen: BuyLoan}
 })
 
 AppRegistry.registerComponent('Loany', () => Loany);
