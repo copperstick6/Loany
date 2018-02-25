@@ -99,7 +99,7 @@ export default class ExampleView extends Component {
   _renderContent(section, i, isActive) {
 	return (
 	  <Animatable.View duration={400}  style={[styles.content, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
-		<Animatable.Text animation={isActive ? 'bounceIn' : undefined}>{section.content}</Animatable.Text>
+		<Text>{section.content}</Text>
 	  </Animatable.View>
 	);
   }
