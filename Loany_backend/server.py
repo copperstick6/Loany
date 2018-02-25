@@ -27,7 +27,7 @@ def buyNewLoan():
 		return("User not valid")
 	allUsers[name][1]+=1
 	credit_score = allUsers[name][0]
-	allLoans.append({"owner": name, "credit_score": credit_score, "rate": rate, "amount": amount})
+	allLoans.append({"owner": name, "credit_score": credit_score, "rate": rate, "amount": amount, "purchased": False})
 	return("Request Successful")
 
 @app.route('/searchUserLoans', methods=['GET'])
@@ -46,6 +46,9 @@ def searchUserLoans():
 			loans_for_user.append(i)
 	return json.dumps(loans_for_user)
 
+@app.route('/displayAllLoans', methods=['GET'])
+def displayAllLoans():
+	return(json.dumps(allLoans))
 
 
 if __name__ == '__main__':

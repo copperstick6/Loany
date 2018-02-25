@@ -24,7 +24,7 @@ export default class App extends Component<{}> {
 
   constructor(props){
 	  super(props)
-	  this.state = {isNew: true, visible: true}
+	  this.state = {isNew: true, visible: false}
   }
   async componentWillMount(){
 	  this.setState({visible: true})

@@ -4,6 +4,8 @@ import {
   Text,
   View,
   TouchableHighlight,
+  AsyncStorage,
+  Button
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
@@ -18,7 +20,7 @@ let CONTENT = [
 	content: BACON_IPSUM,
   },
   {
-	title: 'Buy a new loan',
+	title: 'Get a new loan',
 	content: BACON_IPSUM,
   },
 ];
@@ -27,7 +29,6 @@ let CONTENT = [
 const styles = StyleSheet.create({
   container: {
 	flex: 1,
-	justifyContent: 'center',
 	backgroundColor: '#F5FCFF',
   },
   title: {
@@ -75,10 +76,17 @@ const styles = StyleSheet.create({
 });
 
 export default class ExampleView extends Component {
-  state = {
-	activeSection: false,
-	collapsed: true,
-  };
+	constructor(props){
+		super(props)
+		this.state = {
+			  activeSection: false,
+			  collapsed: true,
+			  ready: false
+		};
+		this._renderContent = this._renderContent.bind(this)
+	}
+	componentWillMount(){
+	}
 
   _toggleExpanded = () => {
 	this.setState({ collapsed: !this.state.collapsed });
@@ -97,25 +105,43 @@ export default class ExampleView extends Component {
   }
 
   _renderContent(section, i, isActive) {
+	  var ItemList = null;
+	  console.log(section)
+	  console.log(i)
+	  if (i == 0){
+		  if(this.props.data == "You currently own no loans."){
+			  ItemList = <Text style={{textAlign: 'center', fontSize: 15}}>You currently have no loans.</Text>
+		  }
+		  else{
+			  ItemList = this.props.data.map(function(loans){
+				return <View><Text style={{textAlign: 'center', fontSize: 15}}>Loan Amount: ${loans["amount"]}. Rate: {loans['rate']}% {"\n"}</Text><Button onPress = {console.log("hi")} title = "View Loan" /></View>
+			})
+		}
+	  }
+	  else{
+		  ItemList = <View><Text style={{textAlign: 'center', fontSize: 15}}>Buy a New Loan{"\n"}</Text><Button onPress={() => this.props.navigate()} title="Buy/Sell"></Button></View>
+	  }
+
 	return (
 	  <Animatable.View duration={400}  style={[styles.content, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
-		<Text>{section.content}</Text>
+		{ItemList}
 	  </Animatable.View>
 	);
-  }
+}
 
   render() {
+
 	return (
 	  <View style={styles.container}>
-		<Accordion
-		  activeSection={this.state.activeSection}
-		  sections={CONTENT}
-		  renderHeader={this._renderHeader}
-		  renderContent={this._renderContent}
-		  onPress = {() => console.log("hi")}
-		  duration={400}
-		  onChange={this._setSection.bind(this)}
-		/>
+		  <Accordion
+			activeSection={this.state.activeSection}
+			sections={CONTENT}
+			renderHeader={this._renderHeader}
+			renderContent={this._renderContent}
+			onPress = {() => console.log("hi")}
+			duration={400}
+			onChange={this._setSection.bind(this)}
+		  />
 
 	  </View>
 	);

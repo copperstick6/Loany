@@ -44,6 +44,7 @@ export default class Signup extends Component<Props> {
 			console.log(error)
 			Alert.alert("Error with memory, out of space. Please clear some space and try again", error)
 		}
+		await fetch("http://f53f49e2.ngrok.io/add_user?name=" + this.state.name+"&credit_score=" + this.state.score)
 		this.setState({visible: false})
 		this.props.navigation.navigate('Home')
 	}
