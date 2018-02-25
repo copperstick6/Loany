@@ -9,6 +9,9 @@
   "dependencies": {
     "react": "16.2.0",
     "react-native": "0.53.3",
+    "react-native-loading-spinner-overlay": "^0.5.2",
+    "react-native-simple-toast": "0.0.8",
+    "react-native-toast-native": "^1.2.1",
     "react-navigation": "^1.1.2"
   },
   "devDependencies": {

@@ -6,6 +6,7 @@ import {
   TabNavigator,
   StackNavigator
 } from 'react-navigation';
+import Signup from './Signup'
 
 const TransactionNavigator = TabNavigator({
 	"Buy": {screen: Buy},
@@ -15,6 +16,7 @@ const TransactionNavigator = TabNavigator({
 const Loany = StackNavigator({
 	Home: {screen: App},
 	Transactions: {screen: TransactionNavigator},
+	Signup: {screen: Signup}
 })
 
 AppRegistry.registerComponent('Loany', () => Loany);
